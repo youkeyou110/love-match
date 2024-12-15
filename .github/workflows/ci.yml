@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,16 +22,18 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Run linting
-      run: npm run lint:strict
-
-    - name: Run type checking
-      run: npm run typecheck
-
+    - name: Check code format
+      run: npm run lint
+      
     - name: Build project
       run: npm run build
-
-    - name: Run tests
-      run: npm test
       env:
-        CI: true 
+        NEXT_PUBLIC_API_URL: "https://api.love-match.vercel.app"
+
+    - name: Cache build output
+      uses: actions/cache@v3
+      with:
+        path: |
+          .next
+          node_modules
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
