@@ -27,8 +27,6 @@ jobs:
       
     - name: Build project
       run: npm run build
-      env:
-        NEXT_PUBLIC_API_URL: "https://api.love-match.vercel.app"
 
     - name: Cache build output
       uses: actions/cache@v3

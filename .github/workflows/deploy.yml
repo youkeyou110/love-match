@@ -27,8 +27,6 @@ jobs:
 
     - name: Build project
       run: npm run build:prod
-      env:
-        NEXT_PUBLIC_API_URL: "https://api.love-match.vercel.app"
 
     - name: Deploy to Vercel
       uses: amondnet/vercel-action@v20
