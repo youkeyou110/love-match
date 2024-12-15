@@ -4,11 +4,13 @@ on:
   deployment_status:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
-    if: github.event.deployment_status.state == 'success' || github.event_name == 'push'
+    if: github.event.deployment_status.state == 'success'
     
     steps:
       - uses: actions/checkout@v3
@@ -17,7 +19,13 @@ jobs:
         uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
-            ${{ github.event.deployment_status.target_url || 'http://localhost:3000' }}
+            ${{ github.event.deployment_status.target_url }}
           uploadArtifacts: true
           temporaryPublicStorage: true
-          configPath: ./lighthouserc.js
+          configPath: '.github/lighthouse/config.json'
+
+      - name: Save results
+        uses: actions/upload-artifact@v3
+        with:
+          name: lighthouse-results
+          path: '.lighthouseci'
