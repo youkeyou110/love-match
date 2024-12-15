@@ -2,16 +2,12 @@ name: Lighthouse CI
 
 on:
   deployment_status:
-  push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    types: [success]
 
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
-    if: github.event.deployment_status.state == 'success'
-    
     steps:
       - uses: actions/checkout@v3
 
@@ -19,7 +15,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
-            ${{ github.event.deployment_status.target_url }}
+            ${{ github.event.deployment_status.target_url || 'https://love-match-youkeyou110.vercel.app' }}
           uploadArtifacts: true
           temporaryPublicStorage: true
           configPath: '.github/lighthouse/config.json'
