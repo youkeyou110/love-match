@@ -8,6 +8,7 @@
   ],
   "github": {
     "enabled": true,
-    "silent": true
+    "silent": true,
+    "autoAlias": true
   }
 } 
