@@ -8,8 +8,19 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "primary-hover": "var(--primary-hover)",
+        "primary-active": "var(--primary-active)",
+        "primary-disabled": "var(--primary-disabled)",
+      },
+      spacing: {
+        container: "1280px",
+      },
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
       },
     },
   },
